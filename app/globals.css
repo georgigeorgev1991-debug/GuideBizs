@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+@theme {
+  --color-granite: #1b2320;
+  --color-pine: #2c4034;
+  --color-glacier: #9fbdb6;
+  --color-snowfield: #ecefea;
+  --color-blaze: #b8402f;
+  --color-blaze-ui: #c96e61;
+  --color-ink: #0e1412;
+
+  /* Type scale 13/16/20/25/31/39/49/61/76, fluid 390–1920px. Body (--text-base) never below 17px. */
+  --text-xs: clamp(13px, 13px, 13px);
+  --text-xs--line-height: 1.4;
+  --text-sm: clamp(16px, 16px, 16px);
+  --text-sm--line-height: 1.5;
+  --text-base: clamp(17px, calc(16.23529px + 0.19608vw), 20px);
+  --text-base--line-height: 1.6;
+  --text-lg: clamp(20px, calc(18.72549px + 0.3268vw), 25px);
+  --text-lg--line-height: 1.45;
+  --text-xl: clamp(25px, calc(23.47059px + 0.39216vw), 31px);
+  --text-xl--line-height: 1.3;
+  --text-2xl: clamp(31px, calc(28.96078px + 0.52288vw), 39px);
+  --text-2xl--line-height: 1.2;
+  --text-3xl: clamp(39px, calc(36.45098px + 0.65359vw), 49px);
+  --text-3xl--line-height: 1.15;
+  --text-4xl: clamp(49px, calc(45.94118px + 0.78431vw), 61px);
+  --text-4xl--line-height: 1.1;
+  --text-5xl: clamp(61px, calc(57.17647px + 0.98039vw), 76px);
+  --text-5xl--line-height: 1.05;
+
+  --measure: 68ch;
+}
+
+@theme inline {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+}
+
+@utility font-mono {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  font-variation-settings: "wdth" 112;
+  font-weight: 500;
+}
+
+@utility font-display {
+  font-variation-settings: "wdth" 112;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+@utility font-display-hero {
+  font-variation-settings: "wdth" 125;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+html {
+  background-color: var(--color-granite);
+}
+
+body {
+  background-color: var(--color-granite);
+  color: var(--color-snowfield);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Unlayered so this beats Tailwind preflight without !important. */
+:focus,
+:focus-visible,
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+[tabindex]:focus,
+[href]:focus,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible,
+[href]:focus-visible {
+  outline: 2px solid var(--color-blaze);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--color-snowfield);
+}
+
+html[data-motion="reduce"] [data-hero-word] {
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+html[data-motion="reduce"] [data-hero-fade] {
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+html[data-motion="reduce"] [data-hero-cta] {
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+html[data-motion="reduce"] [data-kenburns] {
+  transform: none !important;
+}
+
+html[data-motion="reduce"] [data-parallax] {
+  transform: none !important;
+}
+
+html[data-motion="reduce"] [data-stroke-draw] {
+  stroke-dasharray: 1 !important;
+  stroke-dashoffset: 0 !important;
+  transition: none !important;
+}
+
+html[data-motion="reduce"] [data-day-stack] {
+  opacity: 1 !important;
+}
+
+html[data-motion="reduce"] [data-scroll-cue] {
+  transform: none !important;
+}
+
+html[data-motion="reduce"] [data-editorial] {
+  clip-path: inset(0 0 0 0) !important;
+}
+
+@keyframes hero-word {
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-ken {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-cta {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-contour {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes hero-dot {
+  to {
+    opacity: 0.35;
+  }
+}
+
+@keyframes hero-cue {
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.hero-play [data-hero-word] {
+  transform: translateY(100%);
+  animation: hero-word 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-play [data-kenburns] {
+  animation: hero-ken 20s linear forwards;
+}
+
+.hero-play [data-hero-cta] {
+  opacity: 0;
+  animation: hero-cta 300ms ease-out 1.4s forwards;
+}
+
+.hero-play .hero-contour {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hero-contour 1400ms ease-out forwards;
+}
+
+.hero-play .hero-contour-dot {
+  animation: hero-dot 400ms ease-out 3.2s forwards;
+}
+
+.hero-play [data-scroll-cue] {
+  animation: hero-cue 1.6s ease-in-out infinite;
+}
+
+.hero-done [data-hero-word],
+.hero-done [data-hero-cta],
+.hero-done [data-kenburns] {
+  transform: none;
+  opacity: 1;
+  animation: none;
+}

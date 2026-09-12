@@ -1,0 +1,113 @@
+{
+  "skip": "Skip to content",
+  "nav": {
+    "main": "Main",
+    "trip": "The crossing",
+    "private": "Private",
+    "about": "About",
+    "practical": "Practical",
+    "stories": "Stories",
+    "contact": "Contact"
+  },
+  "language": {
+    "toEn": "English",
+    "toNl": "Nederlands"
+  },
+  "common": {
+    "day": "Day {n}",
+    "dayPrefix": "Day",
+    "spotsLeft": "{count} places left",
+    "guaranteed": "Guaranteed",
+    "and": "and"
+  },
+  "difficulty": {
+    "gemiddeld": "moderate",
+    "pittig": "demanding",
+    "zwaar": "hard"
+  },
+  "sleeps": {
+    "berghut": "Mountain hut, dormitory",
+    "guesthouse": "Valley guesthouse"
+  },
+  "status": {
+    "open": "open",
+    "bijna-vol": "almost full",
+    "vol": "full",
+    "gegarandeerd": "guaranteed"
+  },
+  "trip": {
+    "distance": "Distance",
+    "ascent": "Ascent",
+    "descent": "Descent",
+    "walking": "Walking",
+    "sleep": "Sleep",
+    "group": "Group",
+    "days": "days",
+    "nights": "nights",
+    "people": "people",
+    "max": "max"
+  },
+  "ridge": {
+    "sr": "The mountain in layers"
+  },
+  "storiesNav": {
+    "label": "Other pieces",
+    "earlier": "Earlier",
+    "later": "Later"
+  },
+  "og": {
+    "homeKicker": "The van",
+    "tripsKicker": "The crossing",
+    "tripKicker": "This crossing",
+    "privateKicker": "Private",
+    "aboutKicker": "Us",
+    "practicalKicker": "Practical",
+    "storiesKicker": "Stories",
+    "storyKicker": "Story",
+    "contactKicker": "Contact",
+    "termsKicker": "Terms",
+    "privacyKicker": "Privacy",
+    "specimenKicker": "Type specimen",
+    "strip": "{days} days  ·  {nights} nights  ·  {km} km  ·  {hm} hm  ·  max {max}  ·  €{price}"
+  },
+  "forms": {
+    "honeypot": "Company",
+    "pending": "Please wait…",
+    "offline": "No connection. Check your network and try again, or call {phone}.",
+    "spam": "We could not accept this request. Call us on {phone} or email {email}.",
+    "mailserver": "The mail server refused the message.",
+    "mailserverRetry": "{detail} Try again, or call {phone}.",
+    "fields": "Check the fields. Nothing was sent.",
+    "emailRequired": "Enter your email address.",
+    "emailInvalid": "Enter a valid email address.",
+    "consentRequired": "Tick the box to continue.",
+    "nameRequired": "Enter your name.",
+    "messageRequired": "Write briefly what you want to ask.",
+    "privateMessageRequired": "Write briefly what you are looking for.",
+    "clubRequired": "Enter the club or group.",
+    "periodRequired": "Enter the period you want.",
+    "sizeRequired": "Enter the number of people as a whole number.",
+    "sizeRange": "The van takes 2 to {max} people.",
+    "levelRequired": "Choose a walking grade.",
+    "emailLabel": "Your email address",
+    "nameLabel": "Your name",
+    "clubLabel": "Club or group",
+    "periodLabel": "Preferred dates",
+    "periodHint": "A month or a few days is enough.",
+    "sizeLabel": "Number of people",
+    "levelLabel": "Walking grade",
+    "levelPlaceholder": "Choose…",
+    "contactMessageLabel": "What do you want to ask?",
+    "privateMessageLabel": "What are you looking for?",
+    "contactSubmit": "Send the message",
+    "privateSubmit": "Send the enquiry",
+    "listOk": "You are on the list. New dates go to {email}. To stop: email {siteEmail}.",
+    "gpxOk": "The GPX goes to {email}. If it does not arrive, check spam or call {phone}.",
+    "contactOk": "We have your message. On weekdays you hear back within two working days. Call {phone} if it is urgent.",
+    "privateOk": "We have your enquiry. You hear from us on weekdays. Call {phone} if it is urgent.",
+    "listSubject": "List signup",
+    "gpxSubject": "GPX request",
+    "contactSubject": "Message via the site",
+    "privateSubject": "Private trip enquiry"
+  }
+}

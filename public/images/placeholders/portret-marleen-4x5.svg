@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d5c56"/>
+      <stop offset="55%" stop-color="#243832"/>
+      <stop offset="100%" stop-color="#1B2320"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#sky)"/>
+  <polygon points="0,720 144,380 256,520 384,220 504,480 624,300 800,580 800,1000 0,1000" fill="#2C4034"/>
+  <polygon points="0,860 176,620 320,740 463.99999999999994,540 640,700 800,600 800,1000 0,1000" fill="#15201c"/>
+  <ellipse cx="224.00000000000003" cy="700" rx="128" ry="60" fill="#9FBDB6" opacity="0.35"/>
+  <text x="50%" y="50%" fill="#ECEFEA" font-family="ui-monospace, monospace" font-size="36" text-anchor="middle" dominant-baseline="middle">portret-marleen-4x5.avif</text>
+</svg>

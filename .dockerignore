@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+audit-frames
+*.md
+!README.md
+.env*
+!.env.example
+Dockerfile*
+.dockerignore
+agent-transcripts

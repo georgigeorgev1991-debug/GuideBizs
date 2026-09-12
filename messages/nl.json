@@ -1,0 +1,113 @@
+{
+  "skip": "Naar de inhoud",
+  "nav": {
+    "main": "Hoofd",
+    "trip": "De reis",
+    "private": "Privé",
+    "about": "Over ons",
+    "practical": "Praktisch",
+    "stories": "Verhalen",
+    "contact": "Contact"
+  },
+  "language": {
+    "toEn": "English",
+    "toNl": "Nederlands"
+  },
+  "common": {
+    "day": "Dag {n}",
+    "dayPrefix": "Dag",
+    "spotsLeft": "nog {count} plaatsen",
+    "guaranteed": "Gegarandeerd",
+    "and": "en"
+  },
+  "difficulty": {
+    "gemiddeld": "gemiddeld",
+    "pittig": "pittig",
+    "zwaar": "zwaar"
+  },
+  "sleeps": {
+    "berghut": "Berghut, slaapzaal",
+    "guesthouse": "Guesthouse in het dal"
+  },
+  "status": {
+    "open": "open",
+    "bijna-vol": "bijna vol",
+    "vol": "vol",
+    "gegarandeerd": "gegarandeerd"
+  },
+  "trip": {
+    "distance": "Afstand",
+    "ascent": "Stijging",
+    "descent": "Daling",
+    "walking": "Lopen",
+    "sleep": "Slapen",
+    "group": "Groep",
+    "days": "dagen",
+    "nights": "nachten",
+    "people": "personen",
+    "max": "max"
+  },
+  "ridge": {
+    "sr": "De berg in lagen"
+  },
+  "storiesNav": {
+    "label": "Andere stukken",
+    "earlier": "Eerder",
+    "later": "Later"
+  },
+  "og": {
+    "homeKicker": "Overtocht",
+    "tripsKicker": "Programma",
+    "tripKicker": "Deze tocht",
+    "privateKicker": "Privé",
+    "aboutKicker": "Wij",
+    "practicalKicker": "Praktisch",
+    "storiesKicker": "Verhalen",
+    "storyKicker": "Verhaal",
+    "contactKicker": "Contact",
+    "termsKicker": "Voorwaarden",
+    "privacyKicker": "Privacy",
+    "specimenKicker": "Letterproef",
+    "strip": "{days} dagen  ·  {nights} nachten  ·  {km} km  ·  {hm} hm  ·  max {max}  ·  €{price}"
+  },
+  "forms": {
+    "honeypot": "Bedrijf",
+    "pending": "Even geduld…",
+    "offline": "Geen verbinding. Controleer je netwerk en probeer opnieuw, of bel {phone}.",
+    "spam": "We konden dit verzoek niet aannemen. Bel ons op {phone} of mail {email}.",
+    "mailserver": "De mailserver weigerde het bericht.",
+    "mailserverRetry": "{detail} Probeer het opnieuw, of bel {phone}.",
+    "fields": "Kijk de velden na. Niets is verstuurd.",
+    "emailRequired": "Vul je e-mailadres in.",
+    "emailInvalid": "Vul een geldig e-mailadres in.",
+    "consentRequired": "Zet het vinkje om verder te gaan.",
+    "nameRequired": "Vul je naam in.",
+    "messageRequired": "Schrijf kort wat je ons wilt vragen.",
+    "privateMessageRequired": "Schrijf kort wat je zoekt.",
+    "clubRequired": "Vul de club of groep in.",
+    "periodRequired": "Vul de periode in die jullie willen.",
+    "sizeRequired": "Vul het aantal deelnemers in, als geheel getal.",
+    "sizeRange": "De bus neemt 2 tot {max} mensen mee.",
+    "levelRequired": "Kies een loopniveau.",
+    "emailLabel": "Je e-mailadres",
+    "nameLabel": "Je naam",
+    "clubLabel": "Club of groep",
+    "periodLabel": "Voorkeursperiode",
+    "periodHint": "Een maand of een paar dagen is genoeg.",
+    "sizeLabel": "Aantal deelnemers",
+    "levelLabel": "Loopniveau",
+    "levelPlaceholder": "Kies…",
+    "contactMessageLabel": "Wat wil je vragen?",
+    "privateMessageLabel": "Wat zoek je?",
+    "contactSubmit": "Stuur het bericht",
+    "privateSubmit": "Stuur de aanvraag",
+    "listOk": "Je staat op de lijst. Nieuwe data gaan naar {email}. Afmelden: een mail naar {siteEmail}.",
+    "gpxOk": "De GPX gaat naar {email}. Komt hij niet, kijk in spam of bel {phone}.",
+    "contactOk": "We hebben je bericht. Op werkdagen hoor je binnen twee werkdagen iets. Bel {phone} als het spoedt.",
+    "privateOk": "We hebben je aanvraag. Je hoort van ons op werkdagen. Bel {phone} als het spoedt.",
+    "listSubject": "Lijst-aanmelding",
+    "gpxSubject": "GPX-aanvraag",
+    "contactSubject": "Bericht via de site",
+    "privateSubject": "Privé-reis aanvraag"
+  }
+}
