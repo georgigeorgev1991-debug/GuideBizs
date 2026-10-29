@@ -41,7 +41,7 @@ export function ContactForm({
 
   return (
     <form action={formAction} noValidate onSubmit={onSubmit} className="relative mt-10 max-w-xl">
-      <TrackOnSuccess state={state} event={plausibleEvents.enquiry} />
+      <TrackOnSuccess state={state} event={plausibleEvents.tripEnquiry} />
       <Honeypot />
       <input type="hidden" name="issuedAt" value={issuedAt} />
       <input type="hidden" name="stamp" value={stamp} />

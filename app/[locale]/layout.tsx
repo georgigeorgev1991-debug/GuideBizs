@@ -15,7 +15,7 @@ import { htmlLang } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 const archivo = Archivo({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   display: "swap",
   axes: ["wdth"],
   variable: "--font-archivo",

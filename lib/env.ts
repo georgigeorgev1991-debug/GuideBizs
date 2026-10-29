@@ -16,28 +16,21 @@ export function requireMailEnv() {
   return { key, to };
 }
 
+export function requireCorporateMailEnv() {
+  const to = process.env.CORPORATE_TO_EMAIL?.trim();
+  if (!to) {
+    throw new Error("CORPORATE_TO_EMAIL ontbreekt — production build gestopt");
+  }
+  return { to };
+}
+
 export function requireProductionEnv() {
   requireMailEnv();
+  requireCorporateMailEnv();
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (!siteUrl) {
     throw new Error("NEXT_PUBLIC_SITE_URL ontbreekt — production build gestopt");
-  }
-
-  const registration =
-    process.env.NEXT_PUBLIC_REGISTRATION_NUMBER?.trim() || "PENDING";
-  const address = process.env.NEXT_PUBLIC_SITE_ADDRESS?.trim() || "PENDING";
-
-  if (registration === "PENDING") {
-    throw new Error(
-      "registrationNumber is PENDING — production build gestopt. Zet NEXT_PUBLIC_REGISTRATION_NUMBER.",
-    );
-  }
-
-  if (address === "PENDING") {
-    throw new Error(
-      "site.address is PENDING — production build gestopt. Zet NEXT_PUBLIC_SITE_ADDRESS.",
-    );
   }
 
   const leftover = englishPlaceholderHits();

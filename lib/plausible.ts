@@ -1,8 +1,9 @@
 export const plausibleEvents = {
-  enquiry: "enquiry submitted",
-  email: "email captured",
-  gpx: "GPX requested",
-  private: "private-trips enquiry",
+  tripEnquiry: "trip_enquiry",
+  privateEnquiry: "private_enquiry",
+  corporateProposal: "corporate_proposal",
+  emailCaptured: "email_captured",
+  emailGpx: "email_gpx",
 } as const;
 
 declare global {

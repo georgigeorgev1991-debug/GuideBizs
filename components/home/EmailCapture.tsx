@@ -49,7 +49,7 @@ export function EmailCapture({
     <form action={formAction} noValidate onSubmit={onSubmit} className="relative mt-8 max-w-md">
       <TrackOnSuccess
         state={state}
-        event={source === "gpx" ? plausibleEvents.gpx : plausibleEvents.email}
+        event={source === "gpx" ? plausibleEvents.emailGpx : plausibleEvents.emailCaptured}
       />
       <Honeypot />
       <input type="hidden" name="issuedAt" value={issuedAt} />

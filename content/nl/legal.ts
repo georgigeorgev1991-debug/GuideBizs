@@ -13,11 +13,11 @@ export const termsPage = {
     {
       title: "Onderwerpen die nog ingevuld moeten worden",
       body: [
-        "Wie de contractpartij is (vennootschapsvorm, zetel, registernummer).",
+        "Wie de contractpartij is (particuliere personen bij lancering; bedrijfsgegevens alleen zodra die in /content/legal.ts staan).",
         "Wat de reis omvat, wat buiten de prijs valt, en hoe een wijziging van het programma wordt gemeld.",
-        "Aanbetaling, restbetaling, en wat er gebeurt als een vertrek niet doorgaat omdat de groep te klein is of het weer dat vraagt.",
-        "Annulering door de reiziger, en hoe dat zich verhoudt tot een eigen annuleringsverzekering.",
-        "Aansprakelijkheid en de verplichte verzekering onder de Bulgaarse Toerismewet, plus de Pakketreizenrichtlijn — in bewoording die een jurist goedkeurt.",
+        "Aanbetaling, restbetaling, en wat er gebeurt als een vertrek niet doorgaat omdat de groep te klein is of het weer dat vraagt — alleen zodra consumentenboekingen open zijn.",
+        "Annulering door de reiziger, en hoe dat zich verhoudt tot een eigen annuleringsdekking.",
+        "Aansprakelijkheid en bescherming van het reizigersgeld — alleen de feiten die /content/legal.ts op de publicatiedatum ondersteunt, in bewoording die een jurist goedkeurt.",
         "Welk recht van toepassing is, en waar een geschil wordt voorgelegd.",
       ],
     },

@@ -23,8 +23,8 @@ function dryRun() {
 }
 
 function readLocale(form: FormData) {
-  const value = String(form.get("locale") ?? "nl");
-  return isLocale(value) ? value : "nl";
+  const value = String(form.get("locale") ?? "en");
+  return isLocale(value) ? value : "en";
 }
 
 async function deliver(subject: string, text: string, locale: "nl" | "en"): Promise<FormState | null> {

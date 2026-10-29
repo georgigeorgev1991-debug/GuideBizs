@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { EmailCapture } from "@/components/home/EmailCapture";
 import { HomeRail, HomeRidge } from "@/components/home/BelowFoldMotion";
 import { Hero } from "@/components/hero/Hero";
-import { TrustBlock } from "@/components/trust/TrustBlock";
+import { ConsumerTrust } from "@/components/trust/ConsumerTrust";
 import { Prose } from "@/components/ui/Prose";
 import { Section } from "@/components/ui/Section";
 import { SiteHeader } from "@/components/ui/SiteHeader";
@@ -53,6 +53,7 @@ export default async function HomePage({ params }: { params: Promise<Params> }) 
   const departures = getDepartures(locale);
   const images = getImages(locale);
   const tCommon = await getTranslations("common");
+  const tStatus = await getTranslations("status");
   const tRidge = await getTranslations("ridge");
   const switcher = await languageSwitcher(locale, "/");
   const { issuedAt, stamp } = issueFormStamp();
@@ -116,11 +117,12 @@ export default async function HomePage({ params }: { params: Promise<Params> }) 
               <p className="text-sm tabular-nums">
                 {formatDeparture(locale, departure.startDate, departure.endDate)}
               </p>
-              <p className="text-sm">
-                {tCommon("spotsLeft", { count: departure.spotsLeft })}
-                {departure.status === "gegarandeerd" ? (
-                  <span className="ml-3 text-glacier">{tCommon("guaranteed")}</span>
-                ) : null}
+              <p className="text-sm text-glacier">
+                {departure.status === "planned"
+                  ? tCommon("planned")
+                  : departure.status === "gegarandeerd"
+                    ? tCommon("guaranteed")
+                    : tStatus(departure.status)}
               </p>
             </li>
           ))}
@@ -180,13 +182,7 @@ export default async function HomePage({ params }: { params: Promise<Params> }) 
         </ul>
       </Section>
 
-      <TrustBlock
-        heading={copy.home.trustHeading}
-        lead={copy.home.trustLead}
-        items={[...copy.home.trustItems]}
-        team={team}
-        andWord={tCommon("and")}
-      />
+      <ConsumerTrust locale={locale} team={team} andWord={tCommon("and")} />
 
       <Section id="lijst" tone="granite">
         <h2 className="font-display text-2xl">{copy.home.listHeading}</h2>

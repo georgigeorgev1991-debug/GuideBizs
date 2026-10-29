@@ -15,11 +15,11 @@ export const termsPage = enCopy({
     {
       title: "Topics still to fill in",
       body: [
-        "Who the contracting party is (company form, seat, registration number).",
+        "Who the contracting party is (private individuals at launch; company details only once set in /content/legal.ts).",
         "What the trip includes, what sits outside the price, and how a programme change is announced.",
-        "Deposit, remaining payment, and what happens if a departure does not go ahead because the group is too small or the weather requires it.",
-        "Cancellation by the traveller, and how that relates to their own cancellation insurance.",
-        "Liability and the mandatory insurance under the Bulgarian Tourism Act, plus the Package Travel Directive — in wording a lawyer approves.",
+        "Deposit, remaining payment, and what happens if a departure does not go ahead because the group is too small or the weather requires it — only once consumer bookings are open.",
+        "Cancellation by the traveller, and how that relates to their own cancellation cover.",
+        "Liability and traveller money protection — only the facts that /content/legal.ts supports on the day of publication, in wording a lawyer approves.",
         "Which law applies, and where a dispute is heard.",
       ],
     },

@@ -31,6 +31,6 @@ export const privateCopy = {
   vanLabel: "De hele bus, tot {max} mensen",
   vanNote: "Eén bedrag voor de van. Niet per persoon — dan gaat niemand rekenen.",
   forWhom: "Voor wie",
-  formHeading: "Vraag de bus aan",
-  formLead: "Geen winkelwagen. Je schrijft ons, wij bellen of mailen terug.",
+  formHeading: "Plan je voor 2027? Vertel ons over je groep",
+  formLead: "Geen winkelwagen. Je schrijft ons; wij mailen terug over een privé-reis in 2027.",
 } as const;

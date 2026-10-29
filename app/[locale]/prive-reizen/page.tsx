@@ -88,7 +88,8 @@ export default async function PrivateTripsPage({
         <h2 className="font-display text-2xl">{offer.formHeading}</h2>
         <Prose className="mt-6">
           <p>
-            {offer.formLead} {site.phone}
+            {offer.formLead}
+            {site.phone.trim() ? ` ${site.phone}` : ""}
           </p>
         </Prose>
         <PrivateEnquiryForm

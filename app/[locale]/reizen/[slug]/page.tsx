@@ -6,12 +6,12 @@ import { notFound } from "next/navigation";
 import { EmailCapture } from "@/components/home/EmailCapture";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ItinerarySticky } from "@/components/trip/ItinerarySticky";
-import { Button } from "@/components/ui/Button";
 import { Prose } from "@/components/ui/Prose";
 import { Section } from "@/components/ui/Section";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { isWaitlistMode } from "@/content/legal";
 import {
   getDepartures,
   getPages,
@@ -27,7 +27,6 @@ import { touristTripJsonLd } from "@/lib/jsonld";
 import { resolveLocale } from "@/lib/locale";
 import { routeMetadata } from "@/lib/seo";
 import { languageSwitcher } from "@/lib/switcher";
-import { site } from "@/lib/site";
 
 type Params = { locale: string; slug: string };
 
@@ -69,10 +68,12 @@ export default async function TripPage({ params }: { params: Promise<Params> }) 
   const tTrip = await getTranslations("trip");
   const tSleeps = await getTranslations("sleeps");
   const tCommon = await getTranslations("common");
+  const tStatus = await getTranslations("status");
   const switcher = await languageSwitcher(locale, tripHref(trip.slug));
   const tripDepartures = getDepartures(locale).filter((item) => item.tripId === trip.id);
   const { issuedAt, stamp } = issueFormStamp();
   const home = primaryTrip(locale);
+  const waitlist = isWaitlistMode();
 
   return (
     <>
@@ -244,7 +245,13 @@ export default async function TripPage({ params }: { params: Promise<Params> }) 
               <p className="text-sm tabular-nums">
                 {formatDeparture(locale, departure.startDate, departure.endDate)}
               </p>
-              <p className="text-sm">{tCommon("spotsLeft", { count: departure.spotsLeft })}</p>
+              <p className="text-sm text-glacier">
+                {departure.status === "planned"
+                  ? tCommon("planned")
+                  : waitlist
+                    ? tStatus(departure.status)
+                    : tCommon("spotsLeft", { count: departure.spotsLeft })}
+              </p>
             </li>
           ))}
         </ol>
@@ -253,11 +260,18 @@ export default async function TripPage({ params }: { params: Promise<Params> }) 
       <Section id="boeken" tone="granite">
         <h2 className="font-display text-2xl">{copy.trip.bookHeading}</h2>
         <p className="mt-6 max-w-[var(--measure)] text-base">{copy.trip.bookLead}</p>
-        <div className="mt-8">
-          <Button href={`mailto:${site.email}?subject=${encodeURIComponent(trip.name)}`}>
-            {copy.trip.bookCta}
-          </Button>
-        </div>
+        {waitlist ? (
+          <EmailCapture
+            source="nieuwsbrief"
+            issuedAt={issuedAt}
+            stamp={stamp}
+            locale={locale}
+            hint={copy.home.emailHint}
+            submitLabel={copy.trip.bookCta}
+            consentText={copy.home.listConsent}
+            variant="primary"
+          />
+        ) : null}
         <p className="mt-8">
           <Link href="/prive-reizen" prefetch={false} className="underline underline-offset-4">
             {copy.trip.privateCross}
