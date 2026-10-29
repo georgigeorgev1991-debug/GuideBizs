@@ -21,6 +21,7 @@ export function EmailCapture({
   issuedAt,
   stamp,
   locale,
+  plausibleEvent,
 }: {
   hint: string;
   submitLabel: string;
@@ -30,11 +31,15 @@ export function EmailCapture({
   issuedAt: string;
   stamp: string;
   locale: string;
+  plausibleEvent?: string;
 }) {
   const t = useTranslations("forms");
   const action = source === "gpx" ? submitGpx : submitNieuwsbrief;
   const [state, formAction, pending] = useActionState(action, emptyFormState);
   const [offlineMessage, setOfflineMessage] = useState("");
+  const eventName =
+    plausibleEvent ??
+    (source === "gpx" ? plausibleEvents.emailGpx : plausibleEvents.emailCaptured);
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     if (typeof navigator !== "undefined" && navigator.onLine === false) {
@@ -47,10 +52,7 @@ export function EmailCapture({
 
   return (
     <form action={formAction} noValidate onSubmit={onSubmit} className="relative mt-8 max-w-md">
-      <TrackOnSuccess
-        state={state}
-        event={source === "gpx" ? plausibleEvents.gpx : plausibleEvents.email}
-      />
+      <TrackOnSuccess state={state} event={eventName} />
       <Honeypot />
       <input type="hidden" name="issuedAt" value={issuedAt} />
       <input type="hidden" name="stamp" value={stamp} />

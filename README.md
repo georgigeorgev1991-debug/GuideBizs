@@ -1,107 +1,102 @@
-# Guiding website
+# Mura Trails
 
-Nederlandstalige site voor kleinschalige bergreizen. Stack: Next.js 15 (App Router), Tailwind v4, Resend.
+English-first site for small-group hiking trips and (Sprint 2) Sofia corporate mountain days. Stack: Next.js 15 (App Router), `next-intl`, Tailwind v4, Resend, Plausible.
 
-## Installeren en draaien
+Domain: **muratrails.com** — English at `/`, Dutch at `/nl`.
+
+## Install and run
 
 ```bash
 npm install
 cp .env.example .env.local
 ```
 
-Vul `.env.local`. Daarna:
+Fill `.env.local`. Then:
 
 ```bash
 npm run dev      # development, http://localhost:3000
-npm run build    # check:content, production build, RSC length-prefix check
+npm run build    # check:legal (prebuild), check:content, production build, RSC check
 npm start        # standalone server.js
-npm run check:runtime  # elke route in Chrome, console moet leeg zijn
+npm run check:runtime  # every route in Chrome; console must be empty
+npm run check:legal    # legal.ts consistency + claim hard-code scan
 ```
 
-`npm run build` slagen is niet hetzelfde als een pagina die werkt. Na elke production build: `npm start` en `npm run check:runtime` (of `node scripts/check-runtime.mjs http://127.0.0.1:3000`). Geen zoek-vervang in `.next` of `.rsc` na de build — React Flight prefixeert strings met hun bytelengte.
+Phones live in `/content/phones.ts` and stay **empty in development**. A production build fails while they are empty.
 
-## Omgevingsvariabelen
+## Environment variables
 
-Vijf die in `.env.example` staan:
-
-| Variabele | Rol |
+| Variable | Role |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | Canonieke origin (sitemap, canonicals, `nl-NL`, `x-default`) |
-| `NEXT_PUBLIC_BE_SITE_URL` | Belgische host (`nl-BE`). Leeg = zelfde origin als `.nl` |
-| `RESEND_API_KEY` | Versturen van formulieren |
-| `CONTACT_TO_EMAIL` | Postbus die de aanvragen ontvangt |
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Plausible-domein. Leeg = geen script, geen cookiebanner |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin (sitemap, canonicals, `en` + `x-default`) |
+| `NEXT_PUBLIC_BE_SITE_URL` | Optional host used only for `hreflang="nl-BE"`. Empty = same origin |
+| `RESEND_API_KEY` | Form delivery |
+| `CONTACT_TO_EMAIL` | Inbox for consumer forms |
+| `CORPORATE_TO_EMAIL` | Inbox for corporate proposal form (Sprint 2 UI) |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Plausible domain. Empty = no script, no cookie banner |
 
-Production-build (`NODE_ENV=production`) stopt hard als `RESEND_API_KEY`, `CONTACT_TO_EMAIL` of `NEXT_PUBLIC_SITE_URL` ontbreekt, als `NEXT_PUBLIC_REGISTRATION_NUMBER` / `NEXT_PUBLIC_SITE_ADDRESS` ontbreken of nog `PENDING` zijn, of als Engelse copy nog `⟦EN⟧` placeholders bevat.
+Production build (`NODE_ENV=production`) stops if `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CORPORATE_TO_EMAIL` or `NEXT_PUBLIC_SITE_URL` is missing, if `check:legal` fails, if phones in `/content/phones.ts` are empty, or if English copy still contains `⟦EN⟧` placeholders.
 
-Lokaal mag `RESEND_API_KEY` met `build-placeholder` beginnen: formulieren slagen dan zonder echte mail (droog).
+Locally, `RESEND_API_KEY` may start with `build-placeholder`: forms succeed without sending mail (dry run). Real Resend send test is Sprint 5 (DNS/SPF/DKIM for muratrails.com).
 
-Foto’s: vervang bestanden in `public/images/placeholders/` volgens `PHOTOGRAPHY.md`. Geen code.
+Photos: replace files in `public/images/placeholders/` per `PHOTOGRAPHY.md`.
 
 ## Content
 
-Geen CMS. Gedeelde cijfers in `/content/shared`. Proza per locale in `/content/nl` en `/content/en`. Chrome-UI (navigatie, formulierfouten) in `/messages`.
+No CMS. Shared numbers in `/content/shared`. Prose per locale in `/content/nl` and `/content/en`. Chrome UI in `/messages`.
 
-- **Reis toevoegen:** eerst `content/shared/trips.ts` (id, km, hm, prijs, etappes), daarna copy in `content/nl/trips.ts` én `content/en/trips.ts` (eigen slugs). Ontbrekende locale = buildfout via `check:content`.
-- **Vertrek toevoegen:** `content/shared/departures.ts` (`tripId`, datums ISO).
-- **Verhalen:** MDX in `content/nl/stories/` en `content/en/stories/`, zelfde `id`, locale-eigen slug.
+- **Add a trip:** `content/shared/trips.ts`, then copy in `content/nl/trips.ts` and `content/en/trips.ts` (own slugs).
+- **Add a departure:** `content/shared/departures.ts` (`tripId`, ISO dates, `status`). Use `planned` while waitlist mode is on.
+- **Stories:** MDX in `content/nl/stories/` and `content/en/stories/`, same `id`, locale-own slug.
+- **Corporate package:** Sprint 2 — `content/corporatePackages.ts`.
 
-`npm run check:content` weigert Engelse stopwoorden in Dutch files, Nederlandse restwoorden in English files, ontbrekende sleutels tussen locales, cijfers die tussen nl/en uit elkaar lopen, en **`⟦EN⟧` placeholders**. Zolang die token in `content/en`, `messages/en.json` of de Engelse MDX staat, stopt de production-build — hetzelfde harde stop als `PENDING` bij registratie en adres. Haal `enCopy()` en `⟦EN⟧` weg als de echte vertaling erin gaat.
+### Changing the legal status
 
-## Launch blockers
+Edit **`/content/legal.ts` only**. Every trust claim on the site reads from that file.
 
-Niet live gaan voor dit af is:
+Launch values:
 
-- Echte Engelse marketingcopy (nu overal gemarkeerd **`⟦EN⟧`**; `npm run build` faalt tot die tokens weg zijn)
-- Juridische review van `/algemene-voorwaarden` en `/privacy` (gemarkeerd **CONCEPT — nog niet juridisch gecontroleerd**)
-- Aparte juridische review van `/en/terms` en `/en/privacy` (gemarkeerd **CONCEPT — not yet legally reviewed**). Een Nederlandse advocaat-goedkeuring dekt de Engelse tekst niet.
-- `NEXT_PUBLIC_REGISTRATION_NUMBER` (niet `PENDING`)
-- `NEXT_PUBLIC_SITE_ADDRESS` (niet `PENDING`)
-- `site.phone` — nu een placeholder
-- Merknaam bevestigen (`lib/site.ts` → `brand`; enige plek voor die letterlijke naam)
-- Echte fotografie in plaats van placeholders (hero moet de LCP-candidate zijn; zie `PHOTOGRAPHY.md`)
-- Live Resend-sleutel (`re_…`), geen `build-placeholder`
+```ts
+entity: 'individuals'
+vatRegistered: false
+tourOperator.route: 'none'
+consumerBookingMode: 'waitlist'
+offsiteBookable: false
+// liabilityInsurance unset
+firstAidCertified: false
+```
+
+When a tour-operator route exists, set `tourOperator.route` to `'own'` or `'partner'` with the matching fields, then switch `consumerBookingMode` to `'enquiry'`. The production build fails on inconsistent combinations (see `npm run check:legal`).
+
+Public contact line: **Sofia, Bulgaria** + email + phone. No street address anywhere on the site.
+
+## Plausible goals
+
+Prefixed by product:
+
+- `trip_enquiry`
+- `private_enquiry`
+- `corporate_proposal`
+- `email_captured`
+- `email_waitlist_trip`
+- `email_gpx`
 
 ## Deploy
 
 ### Container
 
-Multi-stage image: `node:20-alpine`, non-root `nextjs`, `output: 'standalone'`, healthcheck op `/`.
-
 ```bash
-docker build -t bergpad .
+docker build -t mura-trails .
 docker run --rm -p 3000:3000 \
-  -e NEXT_PUBLIC_SITE_URL=https://bergpad.nl \
-  -e NEXT_PUBLIC_BE_SITE_URL=https://bergpad.be \
+  -e NEXT_PUBLIC_SITE_URL=https://muratrails.com \
   -e RESEND_API_KEY=re_live_xxx \
-  -e CONTACT_TO_EMAIL=hallo@bergpad.nl \
-  -e NEXT_PUBLIC_PLAUSIBLE_DOMAIN=bergpad.nl \
-  -e NEXT_PUBLIC_REGISTRATION_NUMBER=KVK-of-ondernemingsnummer \
-  -e NEXT_PUBLIC_SITE_ADDRESS="straat, plaats" \
-  bergpad
+  -e CONTACT_TO_EMAIL=hello@muratrails.com \
+  -e CORPORATE_TO_EMAIL=corporate@muratrails.com \
+  -e NEXT_PUBLIC_PLAUSIBLE_DOMAIN=muratrails.com \
+  mura-trails
 ```
 
-Lokaal zonder Docker, na `npm run build`:
+Phones must be filled in `/content/phones.ts` before the image build succeeds.
 
-```bash
-npm start
-```
+### Domain
 
-`npm start` kopieert `public` en `.next/static` naar de standalone-output (anders 404’t CSS en blijft de pagina wit). `next start` weigert (of waarschuwt) bij `output: 'standalone'`.
-
-### Twee domeinen, één deployment
-
-Wijs **bergpad.nl** en **bergpad.be** naar dezelfde host (zelfde Vercel-project of dezelfde container). Zet:
-
-- `NEXT_PUBLIC_SITE_URL=https://bergpad.nl` — canonieke origin, `nl-NL`, `en`, `x-default` (x-default = Nederlands), sitemap
-- `NEXT_PUBLIC_BE_SITE_URL=https://bergpad.be` — alleen `hreflang="nl-BE"`
-
-Beide hosts dienen dezelfde HTML. Canonicals blijven `.nl`.
-
-### Als `.be` live gaat
-
-1. DNS A/CNAME van `bergpad.be` naar dezelfde deploy als `.nl`.
-2. `NEXT_PUBLIC_BE_SITE_URL=https://bergpad.be` in de production-env (niet leeg laten, anders is `nl-BE` gelijk aan `.nl` en concurreren de twee URLs).
-3. Rebuild/redeploy — hreflang wordt bij de build in de metadata gebakken.
-4. In Google Search Console beide properties toevoegen; sitemap blijft `https://bergpad.nl/sitemap.xml`.
-5. Plausible: extra site of alias voor `.be` als je die host wilt meten; `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` is één domein (meestal `.nl`).
+`muratrails.com` is the only launch domain. English unprefixed; Dutch under `/nl`. Optional later: `.nl` / `.be` pointing at the same deploy and redirecting to `/nl`.

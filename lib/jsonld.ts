@@ -1,33 +1,44 @@
+import { isWaitlistMode, legal } from "@/content/legal";
 import type { FaqGroup, StoryMeta, Trip } from "@/lib/types";
 import type { AppLocale } from "@/i18n/routing";
 import { jsonLdLanguage, publicPath } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export function organizationJsonLd() {
-  return {
+  const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: site.brand,
     url: site.siteUrl,
     email: site.email,
-    telephone: site.phone,
     logo: `${site.siteUrl.replace(/\/$/, "")}/icon`,
     image: `${site.siteUrl.replace(/\/$/, "")}/icon`,
-    ...(site.address !== "PENDING"
-      ? {
-          address: {
-            "@type": "PostalAddress",
-            addressCountry: "BG",
-            streetAddress: site.address,
-          },
-        }
-      : {
-          address: {
-            "@type": "PostalAddress",
-            addressCountry: "BG",
-          },
-        }),
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Sofia",
+      addressCountry: "BG",
+    },
   };
+
+  if (site.phone.trim()) {
+    data.telephone = site.phone;
+  }
+
+  // legalName / vatID / registration identifiers only when set in legal.ts
+  if (legal.entity === "company" && legal.companyName) {
+    data.legalName = legal.companyName;
+  }
+  if (legal.vatRegistered && legal.vatNumber) {
+    data.vatID = legal.vatNumber;
+  }
+  if (
+    legal.tourOperator.route !== "none" &&
+    legal.tourOperator.registrationNumber
+  ) {
+    data.identifier = legal.tourOperator.registrationNumber;
+  }
+
+  return data;
 }
 
 export function faqPageJsonLd(locale: AppLocale, groups: FaqGroup[]) {
@@ -84,13 +95,18 @@ export function articleJsonLd(locale: AppLocale, story: StoryMeta) {
   };
 }
 
-export function touristTripJsonLd(locale: AppLocale, trip: Trip, audienceType: string, dayLabel: (n: number) => string) {
+export function touristTripJsonLd(
+  locale: AppLocale,
+  trip: Trip,
+  audienceType: string,
+  dayLabel: (n: number) => string,
+) {
   const path = publicPath(locale, {
     pathname: "/reizen/[slug]",
     params: { slug: trip.slug },
   });
   const url = `${site.siteUrl.replace(/\/$/, "")}${path}`;
-  return {
+  const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
     name: trip.name,
@@ -115,18 +131,24 @@ export function touristTripJsonLd(locale: AppLocale, trip: Trip, audienceType: s
         },
       })),
     },
-    offers: {
-      "@type": "Offer",
-      price: trip.priceEUR,
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      url,
-      eligibleRegion: ["NL", "BE"],
-    },
     provider: {
       "@type": "Organization",
       name: site.brand,
       url: site.siteUrl,
     },
   };
+
+  // No offers / availability while in waitlist mode
+  if (!isWaitlistMode()) {
+    data.offers = {
+      "@type": "Offer",
+      price: trip.priceEUR,
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url,
+      eligibleRegion: ["NL", "BE"],
+    };
+  }
+
+  return data;
 }

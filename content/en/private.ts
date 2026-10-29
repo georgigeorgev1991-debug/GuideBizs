@@ -31,6 +31,6 @@ export const privateCopy = {
   vanNote:
     "One price for the van. Not per person — then nobody starts splitting the bill.",
   forWhom: "Who it is for",
-  formHeading: "Ask for the van",
-  formLead: "No checkout. You write; we telephone or email back.",
+  formHeading: "Planning for 2027? Tell us about your group",
+  formLead: "No checkout. You write; we email back about a 2027 private trip.",
 } as const;

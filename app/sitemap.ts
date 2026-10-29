@@ -30,7 +30,7 @@ function languageMap(nlHref: AppHref, enHref: AppHref) {
     "nl-NL": abs("nl", nlHref),
     "nl-BE": beAbsoluteUrl(nlPath),
     en: abs("en", enHref),
-    "x-default": abs("nl", nlHref),
+    "x-default": abs("en", enHref),
   };
 }
 

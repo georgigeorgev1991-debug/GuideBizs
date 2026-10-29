@@ -1,5 +1,5 @@
 {
-  "name": "bergpad",
+  "name": "mura-trails",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -7,9 +7,11 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
+    "prebuild": "npm run check:legal",
     "build": "npm run check:content && next build && node scripts/check-rsc.mjs",
     "start": "node scripts/copy-standalone-assets.mjs && node .next/standalone/server.js",
     "lint": "eslint . --max-warnings 0",
+    "check:legal": "tsx scripts/check-legal.ts",
     "check:content": "tsx scripts/check-content.ts",
     "check:rsc": "node scripts/check-rsc.mjs",
     "check:runtime": "node scripts/check-runtime.mjs",

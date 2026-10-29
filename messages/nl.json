@@ -18,6 +18,7 @@
     "dayPrefix": "Dag",
     "spotsLeft": "nog {count} plaatsen",
     "guaranteed": "Gegarandeerd",
+    "planned": "gepland 2027",
     "and": "en"
   },
   "difficulty": {
@@ -30,6 +31,7 @@
     "guesthouse": "Guesthouse in het dal"
   },
   "status": {
+    "planned": "gepland 2027",
     "open": "open",
     "bijna-vol": "bijna vol",
     "vol": "vol",

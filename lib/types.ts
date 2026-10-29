@@ -4,7 +4,12 @@ export type Difficulty = "gemiddeld" | "pittig" | "zwaar";
 
 export type Sleeps = "berghut" | "guesthouse";
 
-export type DepartureStatus = "open" | "bijna-vol" | "vol" | "gegarandeerd";
+export type DepartureStatus =
+  | "planned"
+  | "open"
+  | "bijna-vol"
+  | "vol"
+  | "gegarandeerd";
 
 export type TripId = "granite-crossing";
 

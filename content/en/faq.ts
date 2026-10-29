@@ -1,5 +1,10 @@
 import { enCopy } from "@/content/en/placeholder";
 import { tripsCopy } from "@/content/en/trips";
+import {
+  faqBookingPayAnswer,
+  faqInsuranceAnswer,
+  faqWhoAreYouAnswer,
+} from "@/lib/trust-copy";
 import { site } from "@/lib/site";
 import type { FaqGroup } from "@/lib/types";
 
@@ -58,11 +63,11 @@ export const faq: FaqGroup[] = enCopy([
       },
       {
         question: "What about insurance?",
-        answer: `${site.brand} is listed in the Bulgarian national tourism register (${site.registrationNumber}) and holds the mandatory tour-operator liability insurance (Bulgarian Tourism Act, art. 97), covering travellers including in insolvency. Because we are established in the EU, the Package Travel Directive applies. Take your own travel and mountain insurance that covers helicopter evacuation. We are not members of ANVR or SGR; we say that out loud.`,
+        answer: faqInsuranceAnswer("en"),
       },
       {
         question: "Who are you exactly?",
-        answer: `Lotte and Niels. Both native Dutch speakers, living in Bulgaria, years on these paths. ${site.brand} is the working name of the two of us. No call centre. Call ${site.phone} if you want to hear us first.`,
+        answer: faqWhoAreYouAnswer("en"),
       },
     ],
   },
@@ -76,12 +81,12 @@ export const faq: FaqGroup[] = enCopy([
       },
       {
         question: "How do I book and pay?",
-        answer: `Send an enquiry via the form. We confirm the place by email${site.email ? ` (${site.email})` : ""}. You pay a deposit, the rest before departure, to our Bulgarian business account. No web shop. Prefer to call: ${site.phone}.`,
+        answer: faqBookingPayAnswer("en"),
       },
       {
         question: "Cancellation terms",
         answer:
-          "Until 56 days before departure you get the deposit back minus admin costs. After that we settle what we can still reverse with huts and transport. Your own cancellation insurance is wise. If we cancel because weather or a too-small group does not allow it, you get the full amount back or a place on a later date.",
+          "Until 56 days before departure you get the deposit back minus admin costs. After that we settle what we can still reverse with huts and transport. Your own cancellation cover is wise. If we cancel because weather or a too-small group does not allow it, you get the full amount back or a place on a later date.",
       },
     ],
   },

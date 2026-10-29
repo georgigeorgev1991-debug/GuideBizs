@@ -4,55 +4,55 @@ const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => {
   const path = new URL(m[1]).pathname;
   return path === "" ? "/" : path;
 });
-const dutchExpected = [
+const enExpected = [
   "/",
-  "/over-ons",
-  "/praktisch",
-  "/prive-reizen",
-  "/reizen",
-  "/reizen/vier-dagen-overtocht",
-  "/verhalen",
+  "/about",
+  "/practical",
+  "/private-trips",
+  "/trips",
+  "/trips/four-day-crossing",
+  "/stories",
   "/contact",
-  "/algemene-voorwaarden",
+  "/terms",
   "/privacy",
-  "/verhalen/wandelen-in-bulgarije",
-  "/verhalen/versus-de-alpen",
-  "/verhalen/is-bulgarije-veilig",
-  "/verhalen/berghutten-in-bulgarije",
-  "/verhalen/van-amsterdam-naar-de-bergen",
-  "/verhalen/meerdaagse-wandelroutes",
+  "/stories/hiking-in-bulgaria",
+  "/stories/versus-the-alps",
+  "/stories/is-bulgaria-safe",
+  "/stories/mountain-huts-in-bulgaria",
+  "/stories/from-amsterdam-to-the-mountains",
+  "/stories/multi-day-walking-routes",
 ];
-const dutch = [...new Set(urls.filter((u) => !u.startsWith("/en")))].sort();
-const missing = dutchExpected.filter((u) => !dutch.includes(u));
-const extra = dutch.filter((u) => !dutchExpected.includes(u));
-console.log("DUTCH sitemap paths:\n" + dutch.join("\n"));
-console.log("missing vs previous:", missing.length ? missing : "none");
+const en = [...new Set(urls.filter((u) => !u.startsWith("/nl")))].sort();
+const missing = enExpected.filter((u) => !en.includes(u));
+const extra = en.filter((u) => !enExpected.includes(u));
+console.log("EN sitemap paths:\n" + en.join("\n"));
+console.log("missing vs expected:", missing.length ? missing : "none");
 console.log("extra:", extra.length ? extra : "none");
-console.log("EN paths:\n" + urls.filter((u) => u.startsWith("/en")).sort().join("\n"));
+console.log("NL paths:\n" + urls.filter((u) => u.startsWith("/nl")).sort().join("\n"));
 
 const routes = [
   "/",
-  "/reizen",
-  "/reizen/vier-dagen-overtocht",
-  "/prive-reizen",
-  "/over-ons",
-  "/praktisch",
-  "/verhalen",
-  "/verhalen/wandelen-in-bulgarije",
+  "/trips",
+  "/trips/four-day-crossing",
+  "/private-trips",
+  "/about",
+  "/practical",
+  "/stories",
+  "/stories/hiking-in-bulgaria",
   "/contact",
-  "/algemene-voorwaarden",
+  "/terms",
   "/privacy",
-  "/en",
-  "/en/trips",
-  "/en/trips/four-day-crossing",
-  "/en/private-trips",
-  "/en/about",
-  "/en/practical",
-  "/en/stories",
-  "/en/stories/hiking-in-bulgaria",
-  "/en/contact",
-  "/en/terms",
-  "/en/privacy",
+  "/nl",
+  "/nl/reizen",
+  "/nl/reizen/vier-dagen-overtocht",
+  "/nl/prive-reizen",
+  "/nl/over-ons",
+  "/nl/praktisch",
+  "/nl/verhalen",
+  "/nl/verhalen/wandelen-in-bulgarije",
+  "/nl/contact",
+  "/nl/algemene-voorwaarden",
+  "/nl/privacy",
 ];
 console.log("\nHREFLANG AUDIT");
 for (const route of routes) {
@@ -85,28 +85,30 @@ for (const route of routes) {
 
 console.log("\nLANGUAGE SWITCHER");
 const pairs = [
-  ["/", "/en"],
-  ["/reizen", "/en/trips"],
-  ["/reizen/vier-dagen-overtocht", "/en/trips/four-day-crossing"],
-  ["/prive-reizen", "/en/private-trips"],
-  ["/over-ons", "/en/about"],
-  ["/praktisch", "/en/practical"],
-  ["/verhalen", "/en/stories"],
-  ["/verhalen/wandelen-in-bulgarije", "/en/stories/hiking-in-bulgaria"],
-  ["/contact", "/en/contact"],
-  ["/algemene-voorwaarden", "/en/terms"],
-  ["/privacy", "/en/privacy"],
+  ["/", "/nl"],
+  ["/trips", "/nl/reizen"],
+  ["/trips/four-day-crossing", "/nl/reizen/vier-dagen-overtocht"],
+  ["/private-trips", "/nl/prive-reizen"],
+  ["/about", "/nl/over-ons"],
+  ["/practical", "/nl/praktisch"],
+  ["/stories", "/nl/verhalen"],
+  ["/stories/hiking-in-bulgaria", "/nl/verhalen/wandelen-in-bulgarije"],
+  ["/contact", "/nl/contact"],
+  ["/terms", "/nl/algemene-voorwaarden"],
+  ["/privacy", "/nl/privacy"],
 ];
-for (const [nl, en] of pairs) {
-  const nlHtml = await (await fetch(origin + nl)).text();
-  const enHtml = await (await fetch(origin + en)).text();
-  const nlSwitch = nlHtml.match(/lang="en"[^>]*href="([^"]+)"|href="([^"]+)"[^>]*lang="en"/i);
+for (const [enPath, nlPath] of pairs) {
+  const enHtml = await (await fetch(origin + enPath)).text();
+  const nlHtml = await (await fetch(origin + nlPath)).text();
   const enSwitch = enHtml.match(/lang="nl"[^>]*href="([^"]+)"|href="([^"]+)"[^>]*lang="nl"/i);
-  const fromNl = (nlSwitch?.[1] || nlSwitch?.[2] || "").replace(origin, "");
+  const nlSwitch = nlHtml.match(/lang="en"[^>]*href="([^"]+)"|href="([^"]+)"[^>]*lang="en"/i);
   const fromEn = (enSwitch?.[1] || enSwitch?.[2] || "").replace(origin, "");
-  const nlOk = fromNl.endsWith(en) || fromNl === en;
-  const enOk = fromEn.endsWith(nl) || fromEn === nl || (nl === "/" && (fromEn === "/" || fromEn.endsWith("/")));
-  console.log(nl, "→", fromNl || "MISSING", nlOk ? "ok" : "FAIL expected " + en);
-  console.log(en, "→", fromEn || "MISSING", enOk ? "ok" : "FAIL expected " + nl);
+  const fromNl = (nlSwitch?.[1] || nlSwitch?.[2] || "").replace(origin, "");
+  const enOk = fromEn.endsWith(nlPath) || fromEn === nlPath;
+  const nlOk =
+    fromNl.endsWith(enPath) ||
+    fromNl === enPath ||
+    (enPath === "/" && (fromNl === "/" || fromNl.endsWith("/")));
+  console.log(enPath, "→", fromEn || "MISSING", enOk ? "ok" : "FAIL expected " + nlPath);
+  console.log(nlPath, "→", fromNl || "MISSING", nlOk ? "ok" : "FAIL expected " + enPath);
 }
-

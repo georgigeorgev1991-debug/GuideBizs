@@ -1,4 +1,9 @@
 import { tripsCopy } from "@/content/nl/trips";
+import {
+  faqBookingPayAnswer,
+  faqInsuranceAnswer,
+  faqWhoAreYouAnswer,
+} from "@/lib/trust-copy";
 import { site } from "@/lib/site";
 import type { FaqGroup } from "@/lib/types";
 
@@ -56,11 +61,11 @@ export const faq: FaqGroup[] = [
       },
       {
         question: "Hoe zit het met verzekering?",
-        answer: `${site.brand} is ingeschreven in het Bulgaarse nationale toerismeregister (${site.registrationNumber}) en heeft de verplichte aansprakelijkheidsverzekering voor touroperators (Bulgaarse Toerismewet, art. 97), die reizigers dekt, ook bij insolventie. Omdat we in de EU gevestigd zijn, geldt de Pakketreizenrichtlijn. Sluit zelf een reis- en bergverzekering af die heli-evacuatie dekt. We zijn geen lid van ANVR of SGR; dat zeggen we graag hardop.`,
+        answer: faqInsuranceAnswer("nl"),
       },
       {
         question: "Wie zijn jullie precies?",
-        answer: `Lotte en Niels. Allebei Nederlandstalig, woonachtig in Bulgarije, jaren op deze paden. ${site.brand} is de werknaam van ons tweetal. Geen callcenter, geen onderaannemer die je nog nooit gezien heeft. Bel ${site.phone} als je ons eerst wilt horen.`,
+        answer: faqWhoAreYouAnswer("nl"),
       },
     ],
   },
@@ -74,12 +79,12 @@ export const faq: FaqGroup[] = [
       },
       {
         question: "Hoe boek en betaal ik?",
-        answer: `Stuur een aanvraag via het formulier. We bevestigen de plaats per e-mail${site.email ? ` (${site.email})` : ""}. Je betaalt een aanbetaling, de rest voor vertrek, op onze Bulgaarse bedrijfsrekening. Geen webwinkel, geen nachtelijk afrekenen. Liever bellen: ${site.phone}.`,
+        answer: faqBookingPayAnswer("nl"),
       },
       {
         question: "Annuleringsvoorwaarden",
         answer:
-          "Tot 56 dagen voor vertrek krijg je de aanbetaling terug minus administratiekosten. Daarna verrekenen we wat we nog kunnen terugdraaien bij hutten en vervoer. Een eigen annuleringsverzekering is verstandig. Als wij annuleren omdat het weer of een te kleine groep het niet toelaat, krijg je het volledige bedrag terug of een plaats op een volgende datum.",
+          "Tot 56 dagen voor vertrek krijg je de aanbetaling terug minus administratiekosten. Daarna verrekenen we wat we nog kunnen terugdraaien bij hutten en vervoer. Een eigen annuleringsdekking is verstandig. Als wij annuleren omdat het weer of een te kleine groep het niet toelaat, krijg je het volledige bedrag terug of een plaats op een volgende datum.",
       },
     ],
   },

@@ -44,7 +44,7 @@ export function PrivateEnquiryForm({
 
   return (
     <form action={formAction} noValidate onSubmit={onSubmit} className="relative mt-10 max-w-xl">
-      <TrackOnSuccess state={state} event={plausibleEvents.private} />
+      <TrackOnSuccess state={state} event={plausibleEvents.privateEnquiry} />
       <Honeypot />
       <input type="hidden" name="issuedAt" value={issuedAt} />
       <input type="hidden" name="stamp" value={stamp} />

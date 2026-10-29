@@ -49,12 +49,14 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
         </h1>
         <p className="mt-6 max-w-[var(--measure)] text-base">{contactPage.lead}</p>
         <dl className="mt-10 max-w-[var(--measure)] space-y-4 text-base">
-          <div>
-            <dt className="text-sm text-glacier">{contactPage.phoneLabel}</dt>
-            <dd>
-              <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a>
-            </dd>
-          </div>
+          {site.phone.trim() ? (
+            <div>
+              <dt className="text-sm text-glacier">{contactPage.phoneLabel}</dt>
+              <dd>
+                <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a>
+              </dd>
+            </div>
+          ) : null}
           <div>
             <dt className="text-sm text-glacier">{contactPage.emailLabel}</dt>
             <dd>
@@ -63,7 +65,7 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
           </div>
           <div>
             <dt className="text-sm text-glacier">{contactPage.addressLabel}</dt>
-            <dd>{site.address}</dd>
+            <dd>{site.contactLocation}</dd>
           </div>
           <div>
             <dt className="text-sm text-glacier">{contactPage.namesLabel}</dt>

@@ -18,6 +18,7 @@
     "dayPrefix": "Day",
     "spotsLeft": "{count} places left",
     "guaranteed": "Guaranteed",
+    "planned": "planned 2027",
     "and": "and"
   },
   "difficulty": {
@@ -30,6 +31,7 @@
     "guesthouse": "Valley guesthouse"
   },
   "status": {
+    "planned": "planned 2027",
     "open": "open",
     "bijna-vol": "almost full",
     "vol": "full",

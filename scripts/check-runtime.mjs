@@ -4,27 +4,27 @@ const origin = (process.argv[2] || "http://localhost:3000").replace(/\/$/, "");
 
 const routes = [
   "/",
-  "/reizen",
-  "/reizen/vier-dagen-overtocht",
-  "/prive-reizen",
-  "/over-ons",
-  "/praktisch",
-  "/verhalen",
-  "/verhalen/wandelen-in-bulgarije",
+  "/trips",
+  "/trips/four-day-crossing",
+  "/private-trips",
+  "/about",
+  "/practical",
+  "/stories",
+  "/stories/hiking-in-bulgaria",
   "/contact",
-  "/algemene-voorwaarden",
+  "/terms",
   "/privacy",
-  "/en",
-  "/en/trips",
-  "/en/trips/four-day-crossing",
-  "/en/private-trips",
-  "/en/about",
-  "/en/practical",
-  "/en/stories",
-  "/en/stories/hiking-in-bulgaria",
-  "/en/contact",
-  "/en/terms",
-  "/en/privacy",
+  "/nl",
+  "/nl/reizen",
+  "/nl/reizen/vier-dagen-overtocht",
+  "/nl/prive-reizen",
+  "/nl/over-ons",
+  "/nl/praktisch",
+  "/nl/verhalen",
+  "/nl/verhalen/wandelen-in-bulgarije",
+  "/nl/contact",
+  "/nl/algemene-voorwaarden",
+  "/nl/privacy",
 ];
 
 const executablePath =
@@ -84,8 +84,8 @@ try {
 }
 
 if (failures.length) {
-  console.error(`check:runtime failed (${failures.length} routes)`);
+  console.error(`\n${failures.length} route(s) failed`);
   process.exit(1);
 }
 
-console.log("check:runtime ok");
+console.log("\ncheck:runtime ok");
