@@ -26,7 +26,6 @@ function abs(locale: AppLocale, href: AppHref) {
 
 function languageMap(nlHref: AppHref, enHref: AppHref) {
   const nlPath = publicPath("nl", nlHref);
-  const enPath = publicPath("en", enHref);
   return {
     "nl-NL": abs("nl", nlHref),
     "nl-BE": beAbsoluteUrl(nlPath),

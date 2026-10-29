@@ -77,6 +77,7 @@ Prefixed by product:
 - `private_enquiry`
 - `corporate_proposal`
 - `email_captured`
+- `email_waitlist_trip`
 - `email_gpx`
 
 ## Deploy

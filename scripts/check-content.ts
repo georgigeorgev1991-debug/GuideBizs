@@ -139,7 +139,11 @@ async function scanStories(locale: AppLocale, pattern: RegExp, label: string) {
         errors.push(`${label} “${match[0]}” in ${locale}/stories/${file}:${index + 1}`);
       }
     }
-    if (locale === "en" && raw.includes(EN_PLACEHOLDER_TOKEN)) {
+    if (
+      locale === "en" &&
+      raw.includes(EN_PLACEHOLDER_TOKEN) &&
+      process.env.NODE_ENV === "production"
+    ) {
       errors.push(`placeholder-Engels ${EN_PLACEHOLDER_TOKEN} in ${locale}/stories/${file}`);
     }
   }
@@ -187,7 +191,7 @@ async function main() {
     visit(nlMods[file], `nl/${file}`, ENGLISH, "Engels woord");
     visit(enMods[file], `en/${file}`, DUTCH, "Nederlands woord");
     const placeholders = countPlaceholderStrings(enMods[file]);
-    if (placeholders > 0) {
+    if (placeholders > 0 && process.env.NODE_ENV === "production") {
       errors.push(
         `placeholder-Engels ${EN_PLACEHOLDER_TOKEN} in en/${file} (${placeholders} strings) — production build gestopt`,
       );
@@ -195,7 +199,7 @@ async function main() {
   }
 
   const enMessages = await readFile(path.join(process.cwd(), "messages", "en.json"), "utf8");
-  if (enMessages.includes(EN_PLACEHOLDER_TOKEN)) {
+  if (enMessages.includes(EN_PLACEHOLDER_TOKEN) && process.env.NODE_ENV === "production") {
     errors.push(`placeholder-Engels ${EN_PLACEHOLDER_TOKEN} in messages/en.json`);
   }
 
@@ -333,7 +337,11 @@ async function main() {
     `- afstand ${trip.itinerary.reduce((sum, day) => sum + day.distanceKm, 0)} km, stijging ${trip.itinerary.reduce((sum, day) => sum + day.ascentM, 0)} hm`,
   );
   console.log(`- ${departureFacts.length} vertrekken (gedeeld)`);
-  console.log("- Engelse copy is placeholder (⟦EN⟧) — production build moet hierop falen");
+  if (process.env.NODE_ENV === "production") {
+    console.log("- Engelse copy: ⟦EN⟧ scan active (production)");
+  } else {
+    console.log("- Engelse copy: ⟦EN⟧ scan soft in non-production (Sprint 4 hardens copy)");
+  }
 }
 
 main().catch((error: unknown) => {

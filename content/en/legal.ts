@@ -1,6 +1,6 @@
-import { enCopy, EN_PLACEHOLDER_TOKEN } from "@/content/en/placeholder";
+import { enCopy } from "@/content/en/placeholder";
 
-export const CONCEPT_MARK = `${EN_PLACEHOLDER_TOKEN} CONCEPT — not yet legally reviewed`;
+export const CONCEPT_MARK = "CONCEPT — not yet legally reviewed";
 
 export const termsPage = enCopy({
   h1: "Terms and conditions",

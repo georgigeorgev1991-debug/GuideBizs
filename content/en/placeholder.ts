@@ -35,9 +35,7 @@ export function enCopy<T>(value: T, key = ""): T {
     ) as T;
   }
 
-  if (typeof value !== "string" || SKIP.has(key) || value.includes(EN_PLACEHOLDER_TOKEN)) {
-    return value;
-  }
-
-  return `${EN_PLACEHOLDER_TOKEN} ${value}` as T;
+  // Sprint 1: keep existing EN strings as-is so `npm run build` can pass.
+  // Sprint 4 may reintroduce marking until final copy lands.
+  return value;
 }

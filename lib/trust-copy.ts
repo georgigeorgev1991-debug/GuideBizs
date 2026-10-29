@@ -134,11 +134,28 @@ export function waitlistTripCta(locale: AppLocale) {
         : "Get the 2027 dates first",
     lead:
       locale === "nl"
-        ? "Laat je e-mail achter. Zodra de boekingen openen, hoor je het als eerste."
-        : "Leave your email. When bookings open, you hear first.",
+        ? "Laat je e-mail achter. Zodra de boekingen openen, hoor je het als eerste. Voordat je iets betaalt, vertellen we je precies wie je reis organiseert en hoe je geld beschermd is."
+        : "Leave your email. When bookings open, you hear first. Before you pay anything, we'll tell you exactly who organises your trip and how your money is protected.",
     submit:
-      locale === "nl" ? "Houd me op de hoogte" : "Keep me posted",
+      locale === "nl"
+        ? "Ontvang de data voor 2027 als eerste"
+        : "Get the 2027 dates first",
   };
+}
+
+export function enquiryTripCta(locale: AppLocale) {
+  return {
+    heading: locale === "nl" ? "Vraag deze reis aan" : "Ask for this trip",
+    lead:
+      locale === "nl"
+        ? "Stuur een mail. We bevestigen je plek met de hand, geen winkelwagen."
+        : "Send an email. We confirm your place by hand, no shopping cart.",
+    submit: locale === "nl" ? "Vraag deze reis aan" : "Ask for this trip",
+  };
+}
+
+export function tripBookCopy(locale: AppLocale) {
+  return isWaitlistMode() ? waitlistTripCta(locale) : enquiryTripCta(locale);
 }
 
 export function waitlistPrivateHeading(locale: AppLocale) {

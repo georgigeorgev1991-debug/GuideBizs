@@ -3,6 +3,7 @@ export const plausibleEvents = {
   privateEnquiry: "private_enquiry",
   corporateProposal: "corporate_proposal",
   emailCaptured: "email_captured",
+  emailWaitlistTrip: "email_waitlist_trip",
   emailGpx: "email_gpx",
 } as const;
 

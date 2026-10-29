@@ -93,6 +93,7 @@ if (process.env.NODE_ENV === "production") {
 /** Operator claim phrases that must only appear via trust components + legal.ts */
 const CLAIM_PATTERNS: { re: RegExp; label: string }[] = [
   { re: /\bEIK\b/, label: "EIK" },
+  { re: /\bVAT\b/, label: "VAT" },
   { re: /VAT invoice/i, label: "VAT invoice" },
   { re: /VAT number/i, label: "VAT number" },
   { re: /registered company/i, label: "registered company" },
@@ -141,7 +142,7 @@ function walkFiles(target: string, out: string[]) {
     }
     return;
   }
-  if (/\.(ts|tsx|js|jsx|mdx)$/.test(target)) {
+  if (/\.(ts|tsx|js|jsx|mdx|json)$/.test(target)) {
     out.push(target);
   }
 }

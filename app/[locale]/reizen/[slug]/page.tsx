@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { EmailCapture } from "@/components/home/EmailCapture";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ItinerarySticky } from "@/components/trip/ItinerarySticky";
+import { Button } from "@/components/ui/Button";
 import { Prose } from "@/components/ui/Prose";
 import { Section } from "@/components/ui/Section";
 import { SiteHeader } from "@/components/ui/SiteHeader";
@@ -25,8 +26,11 @@ import { issueFormStamp } from "@/lib/forms/guards";
 import { tripHref } from "@/lib/href";
 import { touristTripJsonLd } from "@/lib/jsonld";
 import { resolveLocale } from "@/lib/locale";
+import { plausibleEvents } from "@/lib/plausible";
 import { routeMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
 import { languageSwitcher } from "@/lib/switcher";
+import { tripBookCopy } from "@/lib/trust-copy";
 
 type Params = { locale: string; slug: string };
 
@@ -74,6 +78,7 @@ export default async function TripPage({ params }: { params: Promise<Params> }) 
   const { issuedAt, stamp } = issueFormStamp();
   const home = primaryTrip(locale);
   const waitlist = isWaitlistMode();
+  const book = tripBookCopy(locale);
 
   return (
     <>
@@ -258,8 +263,8 @@ export default async function TripPage({ params }: { params: Promise<Params> }) 
       </Section>
 
       <Section id="boeken" tone="granite">
-        <h2 className="font-display text-2xl">{copy.trip.bookHeading}</h2>
-        <p className="mt-6 max-w-[var(--measure)] text-base">{copy.trip.bookLead}</p>
+        <h2 className="font-display text-2xl">{book.heading}</h2>
+        <p className="mt-6 max-w-[var(--measure)] text-base">{book.lead}</p>
         {waitlist ? (
           <EmailCapture
             source="nieuwsbrief"
@@ -267,11 +272,20 @@ export default async function TripPage({ params }: { params: Promise<Params> }) 
             stamp={stamp}
             locale={locale}
             hint={copy.home.emailHint}
-            submitLabel={copy.trip.bookCta}
+            submitLabel={book.submit}
             consentText={copy.home.listConsent}
             variant="primary"
+            plausibleEvent={plausibleEvents.emailWaitlistTrip}
           />
-        ) : null}
+        ) : (
+          <div className="mt-8">
+            <Button
+              href={`mailto:${site.email}?subject=${encodeURIComponent(trip.name)}`}
+            >
+              {book.submit}
+            </Button>
+          </div>
+        )}
         <p className="mt-8">
           <Link href="/prive-reizen" prefetch={false} className="underline underline-offset-4">
             {copy.trip.privateCross}
