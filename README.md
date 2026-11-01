@@ -22,7 +22,7 @@ npm run check:runtime  # elke route in Chrome, console moet leeg zijn
 
 ## Omgevingsvariabelen
 
-Vijf die in `.env.example` staan:
+Deze staan in `.env.example`:
 
 | Variabele | Rol |
 |---|---|
@@ -31,6 +31,8 @@ Vijf die in `.env.example` staan:
 | `RESEND_API_KEY` | Versturen van formulieren |
 | `CONTACT_TO_EMAIL` | Postbus die de aanvragen ontvangt |
 | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Plausible-domein. Leeg = geen script, geen cookiebanner |
+| `NEXT_PUBLIC_REGISTRATION_NUMBER` | Toeristenregisternummer. `PENDING` of leeg stopt de production-build |
+| `NEXT_PUBLIC_SITE_ADDRESS` | Vestigingsadres. `PENDING` of leeg stopt de production-build |
 
 Production-build (`NODE_ENV=production`) stopt hard als `RESEND_API_KEY`, `CONTACT_TO_EMAIL` of `NEXT_PUBLIC_SITE_URL` ontbreekt, als `NEXT_PUBLIC_REGISTRATION_NUMBER` / `NEXT_PUBLIC_SITE_ADDRESS` ontbreken of nog `PENDING` zijn, of als Engelse copy nog `⟦EN⟧` placeholders bevat.
 
@@ -88,6 +90,27 @@ npm start
 ```
 
 `npm start` kopieert `public` en `.next/static` naar de standalone-output (anders 404’t CSS en blijft de pagina wit). `next start` weigert (of waarschuwt) bij `output: 'standalone'`.
+
+### Hostinger
+
+Node.js web app, niet `public_html`. Hostinger installeert dependencies en draait `npm run build` zelf. Upload daarom de bron, geen `node_modules`, `.next` of `.git`.
+
+```bash
+git archive --format=zip --output=bergpad-hostinger.zip HEAD
+```
+
+In hPanel, bij het uploaden van die zip (of bij een GitHub-import van dezelfde branch):
+
+| Veld | Waarde |
+|---|---|
+| Application type | `next` |
+| Node.js | 20 of 22 |
+| Install command | `npm ci` |
+| Build script | `build` |
+| Output directory | `.next` |
+| Entry file | leeg |
+
+Zet dezelfde variabelen als in `.env.example` in de environment-variables stap, met de live waarden. `NEXT_PUBLIC_*` wordt tijdens de build ingebakken; een latere wijziging vraagt een nieuwe deploy. De build stopt zolang registratienummer of adres ontbreekt of `PENDING` is, of zolang Engelse copy nog `⟦EN⟧` bevat.
 
 ### Twee domeinen, één deployment
 
