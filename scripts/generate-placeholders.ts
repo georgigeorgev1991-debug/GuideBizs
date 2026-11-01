@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir } from "node:fs/promises";
 import path from "node:path";
 
 import sharp from "sharp";
@@ -67,7 +67,6 @@ async function main() {
 
   for (const file of photos) {
     const svg = photoSvg(file);
-    await writeFile(path.join(OUT_DIR, `${file.name}.svg`), svg);
     await sharp(Buffer.from(svg)).avif({ quality: 45 }).toFile(path.join(OUT_DIR, `${file.name}.avif`));
     console.log(`${file.name}.avif`);
   }
